@@ -29,13 +29,20 @@ const HomeScreen = ({
   const [dailyList, setDailyList] = useState([]);
   const [dailyTotalCost, setDailyTotalCost] = useState(0);
 
+  const calculateTotal = (price) => {
+    let curTotal = dailyTotalCost;
+    curTotal += Number(price);
+    setDailyTotalCost(curTotal);
+  };
+
   return (
     <>
       {/**Total */}
       <View style={[styles.total, { backgroundColor: primaryTheme() }]}>
         <Text style={[styles.text, { color: textTheme() }]}>Total</Text>
         <Text style={[styles.text, { color: textTheme() }]}>
-          80<Icon name="currency-bdt" size={15} color={textTheme()}></Icon>
+          {dailyTotalCost}
+          <Icon name="currency-bdt" size={15} color={textTheme()}></Icon>
         </Text>
       </View>
 
@@ -70,6 +77,7 @@ const HomeScreen = ({
             hideModal={hideModal}
             dailyList={dailyList}
             setDailyList={setDailyList}
+            calculateTotal={calculateTotal}
           ></AddModal>
 
           {/**FAB */}

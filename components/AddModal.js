@@ -16,6 +16,7 @@ const AddModal = ({
   hideModal,
   dailyList,
   setDailyList,
+  calculateTotal,
 }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -26,6 +27,7 @@ const AddModal = ({
         name: name,
         price: price,
       };
+      calculateTotal(price);
       let copyDailyList = [...dailyList];
       copyDailyList.push(itemObj);
       setDailyList(copyDailyList);
