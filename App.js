@@ -47,6 +47,12 @@ export default function App() {
             headerTitleStyle: { color: myTextTheme() },
             headerStyle: { backgroundColor: myPrimaryTheme() },
             headerTransparent: false,
+            headerShadowVisible: false,
+            // headerLeft: () => (
+            //   <TouchableOpacity>
+            //     <Icon name="menu" size={22} color={myTextTheme()}></Icon>
+            //   </TouchableOpacity>
+            // ),
             headerRight: () => (
               <TouchableOpacity onPress={() => changeTheme()}>
                 <Icon
