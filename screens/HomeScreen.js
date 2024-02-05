@@ -18,6 +18,7 @@ import AddModal from "../components/AddModal";
 
 const HomeScreen = ({
   navigation,
+  route,
   primaryTheme,
   seconderyTheme,
   textTheme,
@@ -43,6 +44,7 @@ const HomeScreen = ({
 
   return (
     <>
+      {/**Progress bar */}
       <View
         style={{
           alignItems: "center",
@@ -78,17 +80,6 @@ const HomeScreen = ({
         <View
           style={[styles.subContainer, { backgroundColor: seconderyTheme() }]}
         >
-          {/* <View style={{ alignItems: "center", marginTop: 15 }}>
-            <Progress.Bar
-              progress={progress}
-              width={350}
-              height={15}
-              borderRadius={20}
-              useNativeDriver={true}
-              borderColor={primaryTheme()}
-              color={textTheme()}
-            ></Progress.Bar>
-          </View> */}
           {/**Card View */}
           <ScrollView style={{ padding: 15 }}>
             {dailyList.map((item, id) => {
