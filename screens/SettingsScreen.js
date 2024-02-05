@@ -10,6 +10,7 @@ const SettingsScreen = ({
   return (
     <View style={[styles.container, { backgroundColor: seconderyTheme() }]}>
       <Text style={{ color: textTheme() }}>SettingsScreen</Text>
+      <Button title="Home" onPress={() => navigation.navigate("Home")}></Button>
     </View>
   );
 };

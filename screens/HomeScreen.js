@@ -10,10 +10,9 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { cardList } from "../helper/CardList";
 
 import ItemCard from "../components/ItemCard";
-import { cardList } from "../helper/CardList";
 import AddModal from "../components/AddModal";
 
 const HomeScreen = ({
@@ -39,8 +38,12 @@ const HomeScreen = ({
     <>
       {/**Total */}
       <View style={[styles.total, { backgroundColor: primaryTheme() }]}>
+        {/* <TouchableOpacity onPress={() => showDeleteModal()}>
+          <Icon name="cog-outline" size={22} color={textTheme()}></Icon>
+        </TouchableOpacity> */}
+
         <Text style={[styles.text, { color: textTheme() }]}>Total</Text>
-        <Text style={[styles.text, { color: textTheme() }]}>
+        <Text style={[styles.text, { color: textTheme(), marginLeft: "auto" }]}>
           {dailyTotalCost}
           <Icon name="currency-bdt" size={15} color={textTheme()}></Icon>
         </Text>
@@ -59,10 +62,15 @@ const HomeScreen = ({
                 //Card
                 <ItemCard
                   key={id}
+                  id={id}
                   name={item.name}
                   price={item.price}
                   primaryTheme={primaryTheme}
+                  seconderyTheme={seconderyTheme}
                   textTheme={textTheme}
+                  dailyList={dailyList}
+                  setDailyList={setDailyList}
+                  calculateTotal={calculateTotal}
                 ></ItemCard>
               );
             })}
@@ -126,40 +134,7 @@ const styles = StyleSheet.create({
 
   total: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "",
     padding: 15,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 0,
-  },
-  modalView: {
-    margin: 15,
-    borderRadius: 20,
-    padding: 15,
-    width: "90%",
-    alignItems: "center",
-    shadowColor: "#000",
-    elevation: 5,
-  },
-  modalInput: {
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderRadius: 20,
-    width: "95%",
-    height: 50,
-    padding: 15,
-    fontSize: 16,
-    margin: 10,
-  },
-  modalButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 20,
-    marginTop: 5,
-    width: 100,
-    height: 40,
   },
 });

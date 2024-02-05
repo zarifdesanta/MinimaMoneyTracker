@@ -53,6 +53,7 @@ const AddModal = ({
           <TextInput
             onChangeText={(text) => setName(text)}
             placeholder="Name"
+            placeholderTextColor="gray"
             style={[
               styles.modalInput,
               { backgroundColor: primaryTheme(), color: textTheme() },
@@ -61,18 +62,27 @@ const AddModal = ({
           <TextInput
             onChangeText={(text) => setPrice(text)}
             placeholder="Price"
+            placeholderTextColor="gray"
             keyboardType="numeric"
             style={[
               styles.modalInput,
               { backgroundColor: primaryTheme(), color: textTheme() },
             ]}
           ></TextInput>
-          <TouchableOpacity
-            onPress={() => addItem()}
-            style={[styles.modalButton, { backgroundColor: primaryTheme() }]}
-          >
-            <Text style={[styles.text, { color: textTheme() }]}>Add</Text>
-          </TouchableOpacity>
+          <View style={{ flexDirection: "row", gap: 15 }}>
+            <TouchableOpacity
+              onPress={() => addItem()}
+              style={[styles.modalButton, { backgroundColor: primaryTheme() }]}
+            >
+              <Text style={[styles.text, { color: textTheme() }]}>Add</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => hideModal()}
+              style={[styles.modalButton, { backgroundColor: primaryTheme() }]}
+            >
+              <Text style={[styles.text, { color: textTheme() }]}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Modal>
