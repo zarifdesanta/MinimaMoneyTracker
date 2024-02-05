@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import * as Progress from "react-native-progress";
 import { cardList } from "../helper/CardList";
 
 import ItemCard from "../components/ItemCard";
@@ -27,15 +28,37 @@ const HomeScreen = ({
 
   const [dailyList, setDailyList] = useState([]);
   const [dailyTotalCost, setDailyTotalCost] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [maxLimit, setMaxLimit] = useState(100);
 
   const calculateTotal = (price) => {
     let curTotal = dailyTotalCost;
     curTotal += Number(price);
     setDailyTotalCost(curTotal);
+
+    let calcProgress = curTotal / maxLimit;
+    console.log(calcProgress, curTotal, maxLimit);
+    setProgress(calcProgress);
   };
 
   return (
     <>
+      <View
+        style={{
+          alignItems: "center",
+          backgroundColor: primaryTheme(),
+        }}
+      >
+        <Progress.Bar
+          progress={progress}
+          width={360}
+          height={15}
+          borderRadius={20}
+          useNativeDriver={true}
+          borderColor={"gray"}
+          color={textTheme()}
+        ></Progress.Bar>
+      </View>
       {/**Total */}
       <View style={[styles.total, { backgroundColor: primaryTheme() }]}>
         {/* <TouchableOpacity onPress={() => showDeleteModal()}>
@@ -55,6 +78,17 @@ const HomeScreen = ({
         <View
           style={[styles.subContainer, { backgroundColor: seconderyTheme() }]}
         >
+          {/* <View style={{ alignItems: "center", marginTop: 15 }}>
+            <Progress.Bar
+              progress={progress}
+              width={350}
+              height={15}
+              borderRadius={20}
+              useNativeDriver={true}
+              borderColor={primaryTheme()}
+              color={textTheme()}
+            ></Progress.Bar>
+          </View> */}
           {/**Card View */}
           <ScrollView style={{ padding: 15 }}>
             {dailyList.map((item, id) => {
@@ -75,7 +109,6 @@ const HomeScreen = ({
               );
             })}
           </ScrollView>
-
           {/**Add Modal */}
           <AddModal
             primaryTheme={primaryTheme}
@@ -87,7 +120,6 @@ const HomeScreen = ({
             setDailyList={setDailyList}
             calculateTotal={calculateTotal}
           ></AddModal>
-
           {/**FAB */}
           <TouchableOpacity
             onPress={() => showModal()}

@@ -82,39 +82,37 @@ export default function App() {
             //     <Icon name="menu" size={22} color={myTextTheme()}></Icon>
             //   </TouchableOpacity>
             // ),
-            headerRight: () => (
-              <>
-                <TouchableOpacity
-                  onPress={() => {
-                    if (navigationRef.getCurrentRoute().name == "Home") {
-                      navigation.navigate("Settings");
-                    } else {
-                      navigation.navigate("Home");
-                    }
-                  }}
-                  style={{ padding: 5 }}
-                >
-                  <Icon
-                    name={"cog-outline"}
-                    size={22}
-                    color={myTextTheme()}
-                  ></Icon>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => changeTheme()}
-                  style={{ paddingLeft: 10 }}
-                >
-                  <Icon
-                    name={changeIconThemeButton()}
-                    size={22}
-                    color={myTextTheme()}
-                  ></Icon>
-                </TouchableOpacity>
-              </>
-            ),
           })}
         >
-          <Stack.Screen name="Home">
+          <Stack.Screen
+            name="Home"
+            options={({ navigation }) => ({
+              headerRight: () => (
+                <>
+                  <TouchableOpacity
+                    onPress={() => changeTheme()}
+                    style={{ padding: 5 }}
+                  >
+                    <Icon
+                      name={changeIconThemeButton()}
+                      size={22}
+                      color={myTextTheme()}
+                    ></Icon>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("Settings")}
+                    style={{ paddingLeft: 10 }}
+                  >
+                    <Icon
+                      name={"cog-outline"}
+                      size={22}
+                      color={myTextTheme()}
+                    ></Icon>
+                  </TouchableOpacity>
+                </>
+              ),
+            })}
+          >
             {(props) => (
               <HomeScreen
                 {...props}
@@ -124,7 +122,23 @@ export default function App() {
               ></HomeScreen>
             )}
           </Stack.Screen>
-          <Stack.Screen name="Settings">
+          <Stack.Screen
+            name="Settings"
+            options={({ navigation }) => ({
+              headerLeft: () => (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("Home")}
+                  style={{ paddingRight: 10 }}
+                >
+                  <Icon
+                    name="arrow-left"
+                    size={22}
+                    color={myTextTheme()}
+                  ></Icon>
+                </TouchableOpacity>
+              ),
+            })}
+          >
             {(props) => (
               <SettingsScreen
                 {...props}

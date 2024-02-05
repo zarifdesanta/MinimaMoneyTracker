@@ -56,7 +56,11 @@ const AddModal = ({
             placeholderTextColor="gray"
             style={[
               styles.modalInput,
-              { backgroundColor: primaryTheme(), color: textTheme() },
+              {
+                backgroundColor: primaryTheme(),
+                color: textTheme(),
+                borderColor: textTheme(),
+              },
             ]}
           ></TextInput>
           <TextInput
@@ -66,7 +70,11 @@ const AddModal = ({
             keyboardType="numeric"
             style={[
               styles.modalInput,
-              { backgroundColor: primaryTheme(), color: textTheme() },
+              {
+                backgroundColor: primaryTheme(),
+                color: textTheme(),
+                borderColor: textTheme(),
+              },
             ]}
           ></TextInput>
           <View style={{ flexDirection: "row", gap: 15 }}>
