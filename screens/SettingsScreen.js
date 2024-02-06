@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import { setData } from "../helper/SaveLoad";
+import { clearAllData, setData } from "../helper/SaveLoad";
 
 const SettingsScreen = ({
   navigation,
@@ -61,6 +61,7 @@ const SettingsScreen = ({
             {/**Row */}
             <View style={styles.row}>
               <TouchableOpacity
+                onPress={() => clearAllData()}
                 style={[styles.button, { backgroundColor: primaryTheme() }]}
               >
                 <Text style={[styles.text, { color: textTheme() }]}>
