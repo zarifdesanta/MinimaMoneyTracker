@@ -23,6 +23,8 @@ const HomeScreen = ({
   seconderyTheme,
   textTheme,
   maxLimit,
+  historyList,
+  setHistoryList,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const showModal = () => setModalVisible(true);
@@ -45,8 +47,32 @@ const HomeScreen = ({
 
   const calculateProgress = () => {
     let calcProgress = curTotal / Number(maxLimit);
-    console.log(calcProgress, curTotal, maxLimit);
+    // console.log(calcProgress, curTotal, maxLimit);
     setProgress(calcProgress);
+  };
+
+  //working on it
+  const newDay = () => {
+    let curDate = new Date().getDate();
+    let prevDate = "5"; //make a useState and set_get
+    if (curDate != prevDate) {
+      //prevDate = curDate;
+      let historyItemObj = {
+        date: new Date().toLocaleDateString(),
+        total: dailyTotalCost,
+      };
+
+      let copyHistoryList = [...historyList];
+      copyHistoryList.push(historyItemObj);
+      setHistoryList(copyHistoryList);
+      setData("historyList", copyHistoryList);
+
+      setDailyList([]);
+      setData("dailyList", []);
+      setDailyTotalCost(0);
+      setData("dailyTotalCost", 0);
+      setProgress(0);
+    }
   };
 
   useEffect(() => {
@@ -67,7 +93,9 @@ const HomeScreen = ({
     }
 
     getAllData();
+    //console.log(new Date().toLocaleDateString());
     //clearAllData();
+    //newDay();
   }, []);
 
   return (
@@ -108,6 +136,12 @@ const HomeScreen = ({
         <View
           style={[styles.subContainer, { backgroundColor: seconderyTheme() }]}
         >
+          <Button
+            title="New Day [debug]"
+            onPress={() => {
+              newDay();
+            }}
+          ></Button>
           {/**Card View */}
           <ScrollView style={{ padding: 15 }}>
             {dailyList.map((item, id) => {

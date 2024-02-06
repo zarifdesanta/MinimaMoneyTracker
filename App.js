@@ -74,11 +74,15 @@ export default function App() {
     async function getAllData() {
       const theme = await getData("theme");
       const mL = await getData("maxLimit");
+      const hL = await getData("historyList");
       if (theme != null) {
         setIsDark(theme);
       }
       if (mL != null) {
         setMaxLimit(mL);
+      }
+      if (hL != null) {
+        setHistoryList(hL);
       }
     }
 
@@ -140,6 +144,8 @@ export default function App() {
                 seconderyTheme={mySeconderyTheme}
                 textTheme={myTextTheme}
                 maxLimit={maxLimit}
+                historyList={historyList}
+                setHistoryList={setHistoryList}
               ></HomeScreen>
             )}
           </Stack.Screen>
@@ -169,6 +175,7 @@ export default function App() {
                 maxLimit={maxLimit}
                 setMaxLimit={setMaxLimit}
                 changeTheme={changeTheme}
+                historyList={historyList}
               ></SettingsScreen>
             )}
           </Stack.Screen>

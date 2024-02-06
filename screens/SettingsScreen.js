@@ -5,9 +5,13 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Modal,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { clearAllData, setData } from "../helper/SaveLoad";
+import HistoryModal from "../components/HistoryModal";
 
 const SettingsScreen = ({
   navigation,
@@ -17,7 +21,12 @@ const SettingsScreen = ({
   textTheme,
   setMaxLimit,
   changeTheme,
+  historyList,
 }) => {
+  const [historyModalVisible, setHistoryModalVisible] = useState(false);
+  const showHistoryModal = () => setHistoryModalVisible(true);
+  const hideHistoryModal = () => setHistoryModalVisible(false);
+
   const [limitInput, setLimitInput] = useState(100);
 
   const setLimitButtonHandler = () => {
@@ -32,6 +41,16 @@ const SettingsScreen = ({
         <View
           style={[styles.subContainer, { backgroundColor: seconderyTheme() }]}
         >
+          {/**History Modal */}
+          <HistoryModal
+            primaryTheme={primaryTheme}
+            seconderyTheme={seconderyTheme}
+            textTheme={textTheme}
+            historyList={historyList}
+            historyModalVisible={historyModalVisible}
+            hideHistoryModal={hideHistoryModal}
+          ></HistoryModal>
+
           {/**Column */}
           <View style={styles.column}>
             {/**Row */}
@@ -69,6 +88,7 @@ const SettingsScreen = ({
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
+                onPress={() => showHistoryModal()}
                 style={[styles.button, { backgroundColor: primaryTheme() }]}
               >
                 <Text style={[styles.text, { color: textTheme() }]}>
