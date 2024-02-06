@@ -51,28 +51,25 @@ const HomeScreen = ({
     setProgress(calcProgress);
   };
 
+  const [prevDate, setPrevDate] = useState("");
+
   //working on it
   const newDay = () => {
-    let curDate = new Date().getDate();
-    let prevDate = "5"; //make a useState and set_get
-    if (curDate != prevDate) {
-      //prevDate = curDate;
-      let historyItemObj = {
-        date: new Date().toLocaleDateString(),
-        total: dailyTotalCost,
-      };
+    let historyItemObj = {
+      date: new Date().toLocaleDateString(),
+      total: dailyTotalCost,
+    };
 
-      let copyHistoryList = [...historyList];
-      copyHistoryList.push(historyItemObj);
-      setHistoryList(copyHistoryList);
-      setData("historyList", copyHistoryList);
+    let copyHistoryList = [...historyList];
+    copyHistoryList.push(historyItemObj);
+    setHistoryList(copyHistoryList);
+    setData("historyList", copyHistoryList);
 
-      setDailyList([]);
-      setData("dailyList", []);
-      setDailyTotalCost(0);
-      setData("dailyTotalCost", 0);
-      setProgress(0);
-    }
+    setDailyList([]);
+    setData("dailyList", []);
+    setDailyTotalCost(0);
+    setData("dailyTotalCost", 0);
+    setProgress(0);
   };
 
   useEffect(() => {
@@ -83,12 +80,16 @@ const HomeScreen = ({
     async function getAllData() {
       const dL = await getData("dailyList");
       const dTC = await getData("dailyTotalCost");
+      const pD = await getData("prevDate");
       if (dL != null) {
         setDailyList(dL);
       }
       if (dTC != null) {
         setDailyTotalCost(dTC);
         setProgress(dTC / Number(maxLimit));
+      }
+      if (pD != null) {
+        setPrevDate(pD);
       }
     }
 

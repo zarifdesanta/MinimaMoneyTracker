@@ -19,6 +19,7 @@ const SettingsScreen = ({
   primaryTheme,
   seconderyTheme,
   textTheme,
+  maxLimit,
   setMaxLimit,
   changeTheme,
   historyList,
@@ -57,7 +58,7 @@ const SettingsScreen = ({
             <View style={styles.row}>
               <TextInput
                 onChangeText={(text) => setLimitInput(text)}
-                placeholder="Max Limit"
+                placeholder={maxLimit.toString()}
                 placeholderTextColor="gray"
                 style={[
                   styles.input,
@@ -84,7 +85,7 @@ const SettingsScreen = ({
                 style={[styles.button, { backgroundColor: primaryTheme() }]}
               >
                 <Text style={[styles.text, { color: textTheme() }]}>
-                  Clear All Data
+                  Clear All Data [DEBUG]
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -102,7 +103,7 @@ const SettingsScreen = ({
                 style={[styles.button, { backgroundColor: primaryTheme() }]}
               >
                 <Text style={[styles.text, { color: textTheme() }]}>
-                  Reset Day
+                  Reset Day [DEBUG]
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
