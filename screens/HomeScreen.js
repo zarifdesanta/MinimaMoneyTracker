@@ -12,6 +12,7 @@ import React, { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import * as Progress from "react-native-progress";
 import { cardList } from "../helper/CardList";
+import { setData, getData, clearAllData } from "../helper/SaveLoad";
 
 import ItemCard from "../components/ItemCard";
 import AddModal from "../components/AddModal";
@@ -38,6 +39,7 @@ const HomeScreen = ({
     curTotal = dailyTotalCost;
     curTotal += Number(price);
     setDailyTotalCost(curTotal);
+    setData("dailyTotalCost", curTotal);
 
     calculateProgress();
   };
@@ -51,6 +53,23 @@ const HomeScreen = ({
   useEffect(() => {
     calculateProgress();
   }, [maxLimit]);
+
+  useEffect(() => {
+    async function getAllData() {
+      const dL = await getData("dailyList");
+      const dTC = await getData("dailyTotalCost");
+      const p = await getData("progress");
+      if (dL != null) {
+        setDailyList(dL);
+      }
+      if (dTC != null) {
+        setDailyTotalCost(dTC);
+      }
+    }
+
+    getAllData();
+    //clearAllData();
+  }, []);
 
   return (
     <>

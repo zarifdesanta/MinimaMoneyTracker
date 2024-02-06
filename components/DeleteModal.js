@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity, Modal } from "react-native";
 import React from "react";
+import { setData } from "../helper/SaveLoad";
 
 const DeleteModal = ({
   id,
@@ -17,6 +18,8 @@ const DeleteModal = ({
     calculateTotal(Number(-copyDailyList[id].price));
     copyDailyList.splice(id, 1);
     setDailyList(copyDailyList);
+    //saving after deleting item -> dailyList
+    setData("dailyList", copyDailyList);
     hideDeleteModal();
   };
 

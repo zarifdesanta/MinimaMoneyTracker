@@ -7,6 +7,7 @@ import {
   TextInput,
 } from "react-native";
 import React, { useState } from "react";
+import { setData } from "../helper/SaveLoad";
 
 const AddModal = ({
   primaryTheme,
@@ -34,6 +35,8 @@ const AddModal = ({
       setName("");
       setPrice(0);
       hideModal();
+      //saving after adding item -> dailyList
+      setData("dailyList", copyDailyList);
     } else {
       hideModal();
     }

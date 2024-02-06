@@ -7,9 +7,10 @@ import {
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import SettingsScreen from "./screens/SettingsScreen";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { primaryTheme, seconderyTheme, textTheme } from "./helper/ColorPalette";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { setData, getData } from "./helper/SaveLoad";
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +50,7 @@ export default function App() {
 
   const changeTheme = () => {
     setIsDark(!isDark);
+    setData("theme", !isDark);
   };
 
   // function getCurScreenName() {
@@ -67,6 +69,21 @@ export default function App() {
   const [maxLimit, setMaxLimit] = useState(100);
   //History useState
   const [historyList, setHistoryList] = useState([]);
+
+  useEffect(() => {
+    async function getAllData() {
+      const theme = await getData("theme");
+      const mL = await getData("maxLimit");
+      if (theme != null) {
+        setIsDark(theme);
+      }
+      if (mL != null) {
+        setMaxLimit(mL);
+      }
+    }
+
+    getAllData();
+  }, []);
 
   return (
     <>

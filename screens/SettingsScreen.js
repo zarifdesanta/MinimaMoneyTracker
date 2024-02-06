@@ -7,6 +7,7 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
+import { setData } from "../helper/SaveLoad";
 
 const SettingsScreen = ({
   navigation,
@@ -21,6 +22,7 @@ const SettingsScreen = ({
 
   const setLimitButtonHandler = () => {
     setMaxLimit(limitInput);
+    setData("maxLimit", limitInput);
     navigation.navigate("Home");
   };
 
