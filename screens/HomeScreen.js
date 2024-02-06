@@ -7,6 +7,7 @@ import {
   View,
   Modal,
   TextInput,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -51,25 +52,43 @@ const HomeScreen = ({
     setProgress(calcProgress);
   };
 
-  const [prevDate, setPrevDate] = useState("");
-
   //working on it
   const newDay = () => {
-    let historyItemObj = {
-      date: new Date().toLocaleDateString(),
-      total: dailyTotalCost,
-    };
+    //bug: even though dailyList is empty,it still going inside this block
+    if (dailyList != null) {
+      let historyItemObj = {
+        date: new Date().toLocaleDateString(),
+        total: dailyTotalCost,
+      };
 
-    let copyHistoryList = [...historyList];
-    copyHistoryList.push(historyItemObj);
-    setHistoryList(copyHistoryList);
-    setData("historyList", copyHistoryList);
+      let copyHistoryList = [...historyList];
+      copyHistoryList.push(historyItemObj);
+      setHistoryList(copyHistoryList);
+      setData("historyList", copyHistoryList);
 
-    setDailyList([]);
-    setData("dailyList", []);
-    setDailyTotalCost(0);
-    setData("dailyTotalCost", 0);
-    setProgress(0);
+      setDailyList([]);
+      setData("dailyList", []);
+      setDailyTotalCost(0);
+      setData("dailyTotalCost", 0);
+      setProgress(0);
+    } else {
+      console.log("hello");
+    }
+  };
+
+  const newDayAlertTrigger = () => {
+    Alert.alert("New Day", "Current total cost will be added to history", [
+      {
+        text: "Start",
+        onPress: () => newDay(),
+        style: "cancel",
+      },
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel"),
+        style: "cancel",
+      },
+    ]);
   };
 
   useEffect(() => {
@@ -94,7 +113,7 @@ const HomeScreen = ({
     }
 
     getAllData();
-    //console.log(new Date().toLocaleDateString());
+    console.log(dailyList);
     //clearAllData();
     //newDay();
   }, []);
@@ -137,12 +156,6 @@ const HomeScreen = ({
         <View
           style={[styles.subContainer, { backgroundColor: seconderyTheme() }]}
         >
-          <Button
-            title="New Day [debug]"
-            onPress={() => {
-              newDay();
-            }}
-          ></Button>
           {/**Card View */}
           <ScrollView style={{ padding: 15 }}>
             {dailyList.map((item, id) => {
@@ -175,6 +188,28 @@ const HomeScreen = ({
             calculateTotal={calculateTotal}
           ></AddModal>
           {/**FAB */}
+          <TouchableOpacity
+            onPress={() => newDayAlertTrigger()}
+            style={[
+              styles.fab,
+              {
+                backgroundColor: primaryTheme(),
+                right: 75,
+                width: 50,
+                height: 50,
+                borderRadius: 15,
+              },
+            ]}
+          >
+            <View>
+              <Icon
+                name="archive-plus-outline"
+                size={26}
+                color={textTheme()}
+              ></Icon>
+            </View>
+          </TouchableOpacity>
+
           <TouchableOpacity
             onPress={() => showModal()}
             style={[styles.fab, { backgroundColor: primaryTheme() }]}
