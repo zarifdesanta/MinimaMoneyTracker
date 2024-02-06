@@ -64,6 +64,9 @@ export default function App() {
   //     return;
   //   }
   // };
+  const [maxLimit, setMaxLimit] = useState(100);
+  //History useState
+  const [historyList, setHistoryList] = useState([]);
 
   return (
     <>
@@ -119,6 +122,7 @@ export default function App() {
                 primaryTheme={myPrimaryTheme}
                 seconderyTheme={mySeconderyTheme}
                 textTheme={myTextTheme}
+                maxLimit={maxLimit}
               ></HomeScreen>
             )}
           </Stack.Screen>
@@ -145,6 +149,9 @@ export default function App() {
                 primaryTheme={myPrimaryTheme}
                 seconderyTheme={mySeconderyTheme}
                 textTheme={myTextTheme}
+                maxLimit={maxLimit}
+                setMaxLimit={setMaxLimit}
+                changeTheme={changeTheme}
               ></SettingsScreen>
             )}
           </Stack.Screen>

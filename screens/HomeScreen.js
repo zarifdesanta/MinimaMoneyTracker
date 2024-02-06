@@ -8,7 +8,7 @@ import {
   Modal,
   TextInput,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import * as Progress from "react-native-progress";
 import { cardList } from "../helper/CardList";
@@ -22,6 +22,7 @@ const HomeScreen = ({
   primaryTheme,
   seconderyTheme,
   textTheme,
+  maxLimit,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const showModal = () => setModalVisible(true);
@@ -30,17 +31,26 @@ const HomeScreen = ({
   const [dailyList, setDailyList] = useState([]);
   const [dailyTotalCost, setDailyTotalCost] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [maxLimit, setMaxLimit] = useState(100);
+
+  var curTotal = dailyTotalCost;
 
   const calculateTotal = (price) => {
-    let curTotal = dailyTotalCost;
+    curTotal = dailyTotalCost;
     curTotal += Number(price);
     setDailyTotalCost(curTotal);
 
-    let calcProgress = curTotal / maxLimit;
+    calculateProgress();
+  };
+
+  const calculateProgress = () => {
+    let calcProgress = curTotal / Number(maxLimit);
     console.log(calcProgress, curTotal, maxLimit);
     setProgress(calcProgress);
   };
+
+  useEffect(() => {
+    calculateProgress();
+  }, [maxLimit]);
 
   return (
     <>

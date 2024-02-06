@@ -14,7 +14,16 @@ const SettingsScreen = ({
   primaryTheme,
   seconderyTheme,
   textTheme,
+  setMaxLimit,
+  changeTheme,
 }) => {
+  const [limitInput, setLimitInput] = useState(100);
+
+  const setLimitButtonHandler = () => {
+    setMaxLimit(limitInput);
+    navigation.navigate("Home");
+  };
+
   return (
     <>
       <View style={[styles.container, { backgroundColor: primaryTheme() }]}>
@@ -26,6 +35,7 @@ const SettingsScreen = ({
             {/**Row */}
             <View style={styles.row}>
               <TextInput
+                onChangeText={(text) => setLimitInput(text)}
                 placeholder="Max Limit"
                 placeholderTextColor="gray"
                 style={[
@@ -38,6 +48,7 @@ const SettingsScreen = ({
                 ]}
               ></TextInput>
               <TouchableOpacity
+                onPress={() => setLimitButtonHandler()}
                 style={[styles.button, { backgroundColor: primaryTheme() }]}
               >
                 <Text style={[styles.text, { color: textTheme() }]}>
@@ -72,6 +83,7 @@ const SettingsScreen = ({
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
+                onPress={() => changeTheme()}
                 style={[styles.button, { backgroundColor: primaryTheme() }]}
               >
                 <Text style={[styles.text, { color: textTheme() }]}>
