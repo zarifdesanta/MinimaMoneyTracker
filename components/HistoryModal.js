@@ -6,7 +6,7 @@ import {
   ScrollView,
   Modal,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const HistoryModal = ({
@@ -17,6 +17,8 @@ const HistoryModal = ({
   historyModalVisible,
   hideHistoryModal,
 }) => {
+  var total = 0;
+
   return (
     <Modal
       animationType="slide"
@@ -30,30 +32,59 @@ const HistoryModal = ({
         <View style={[styles.modalView, { backgroundColor: seconderyTheme() }]}>
           <ScrollView contentContainerStyle={{ alignItems: "center" }}>
             {historyList.map((item, id) => {
+              total += Number(item.total);
+
               return (
-                <View
-                  key={id}
-                  style={{
-                    width: "95%",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text style={[styles.text, { color: textTheme() }]}>
-                    {item.date}
-                  </Text>
-                  <Text style={[styles.text, { color: textTheme() }]}>
-                    {item.total}
-                    <Icon
-                      name="currency-bdt"
-                      size={15}
-                      color={textTheme()}
-                    ></Icon>
-                  </Text>
-                </View>
+                <>
+                  <View
+                    key={id}
+                    style={{
+                      width: "95%",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text style={[styles.text, { color: textTheme() }]}>
+                      {item.date}
+                    </Text>
+                    <Text style={[styles.text, { color: textTheme() }]}>
+                      {item.total}
+                      <Icon
+                        name="currency-bdt"
+                        size={15}
+                        color={textTheme()}
+                      ></Icon>
+                    </Text>
+                  </View>
+                </>
               );
             })}
           </ScrollView>
+
+          <View
+            style={{
+              width: "95%",
+              height: 1,
+              opacity: 0.5,
+              backgroundColor: "gray",
+              alignSelf: "center",
+            }}
+          ></View>
+
+          <View
+            style={{
+              width: "95%",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={[styles.text, { color: textTheme() }]}>Total</Text>
+            <Text style={[styles.text, { color: textTheme() }]}>
+              {total}
+              <Icon name="currency-bdt" size={15} color={textTheme()}></Icon>
+            </Text>
+          </View>
+
           <View style={{ flexDirection: "row", gap: 15 }}>
             <TouchableOpacity
               onPress={() => hideHistoryModal()}

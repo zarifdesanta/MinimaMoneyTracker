@@ -16,6 +16,7 @@ import { setData, getData, clearAllData } from "../helper/SaveLoad";
 
 import ItemCard from "../components/ItemCard";
 import AddModal from "../components/AddModal";
+import NewDayModal from "../components/NewDayModal";
 
 const HomeScreen = ({
   navigation,
@@ -30,6 +31,10 @@ const HomeScreen = ({
   const [modalVisible, setModalVisible] = useState(false);
   const showModal = () => setModalVisible(true);
   const hideModal = () => setModalVisible(false);
+
+  const [newDayModalVisible, setNewDayModalVisible] = useState(false);
+  const showNewDayModal = () => setNewDayModalVisible(true);
+  const hideNewDayModal = () => setNewDayModalVisible(false);
 
   const [dailyList, setDailyList] = useState([]);
   const [dailyTotalCost, setDailyTotalCost] = useState(0);
@@ -71,25 +76,27 @@ const HomeScreen = ({
       setDailyTotalCost(0);
       setData("dailyTotalCost", 0);
       setProgress(0);
+      hideNewDayModal();
     } else {
       console.log("hello");
+      hideNewDayModal();
     }
   };
 
-  const newDayAlertTrigger = () => {
-    Alert.alert("New Day", "Current total cost will be added to history", [
-      {
-        text: "Start",
-        onPress: () => newDay(),
-        style: "cancel",
-      },
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel"),
-        style: "cancel",
-      },
-    ]);
-  };
+  // const newDayAlertTrigger = () => {
+  //   Alert.alert("New Day", "Current total cost will be added to history", [
+  //     {
+  //       text: "Start",
+  //       onPress: () => newDay(),
+  //       style: "cancel",
+  //     },
+  //     {
+  //       text: "Cancel",
+  //       onPress: () => console.log("Cancel"),
+  //       style: "cancel",
+  //     },
+  //   ]);
+  // };
 
   useEffect(() => {
     calculateProgress();
@@ -187,9 +194,19 @@ const HomeScreen = ({
             setDailyList={setDailyList}
             calculateTotal={calculateTotal}
           ></AddModal>
+          {/**New Day Modal */}
+          <NewDayModal
+            primaryTheme={primaryTheme}
+            seconderyTheme={seconderyTheme}
+            textTheme={textTheme}
+            newDayModalVisible={newDayModalVisible}
+            hideNewDayModal={hideNewDayModal}
+            newDay={newDay}
+          ></NewDayModal>
+
           {/**FAB */}
           <TouchableOpacity
-            onPress={() => newDayAlertTrigger()}
+            onPress={() => showNewDayModal()}
             style={[
               styles.fab,
               {
